@@ -4,4 +4,119 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
+    <changeSet author="root (generated)" id="1629657809675-1">
+        <createSequence sequenceName="base_id_seq"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-2">
+        <createSequence sequenceName="event_id_seq"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-3">
+        <createSequence sequenceName="file_id_seq"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-4">
+        <createSequence sequenceName="role_id_seq"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-5">
+        <createSequence sequenceName="user_id_seq"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-6">
+        <createTable tableName="event">
+            <column name="id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="uploaded" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_id" type="INT"/>
+            <column name="user_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-7">
+        <createTable tableName="file">
+            <column name="id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_path" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="filename" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT"/>
+            <column name="created" type="date"/>
+            <column name="last_modified_date" type="date"/>
+            <column defaultValue="'ACTIVE'::character varying" name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-8">
+        <createTable tableName="role">
+            <column name="id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-9">
+        <createTable tableName="user_role">
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-10">
+        <createTable tableName="users">
+            <column name="id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="full_name" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-11">
+        <addPrimaryKey columnNames="id" constraintName="event_pkey" tableName="event"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-12">
+        <addPrimaryKey columnNames="id" constraintName="file_pkey" tableName="file"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-13">
+        <addPrimaryKey columnNames="id" constraintName="role_pkey" tableName="role"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-14">
+        <addPrimaryKey columnNames="user_id, role_id" constraintName="user_role_pkey" tableName="user_role"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-15">
+        <addPrimaryKey columnNames="id" constraintName="users_pkey" tableName="users"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-16">
+        <addUniqueConstraint columnNames="username" constraintName="uk_r43af9ap4edm43mmtq01oddj6" tableName="users"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-17">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="event" constraintName="fk31rxexkqqbeymnpw4d3bf9vsy" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-18">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role" constraintName="fka68196081fvovjhkek5m97n3y" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="role"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-19">
+        <addForeignKeyConstraint baseColumnNames="file_id" baseTableName="event" constraintName="fkb9t8ip4tgeyaniayn8k1n11m1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="file"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-20">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="file" constraintName="fke70ql3orpo0ghvfmqccv27ng" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="root (generated)" id="1629657809675-21">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role" constraintName="fkj345gk1bovqvfame88rcx7yyx" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
 </databaseChangeLog>
