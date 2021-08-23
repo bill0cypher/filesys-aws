@@ -29,7 +29,7 @@ public class FileController {
         this.userService = userService;
     }
 
-    @PostMapping(path = "/file/new/{user_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(path = "/new/{user_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<File> saveUserFile(@PathVariable("user_id") Integer id,
                                              @RequestParam("file")MultipartFile file) {
         logger.info("REST request to upload file.");
@@ -48,7 +48,7 @@ public class FileController {
                 HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/file/trash")
+    @DeleteMapping(path = "/trash")
     public ResponseEntity<HttpStatus> deleteUserFiles(@RequestParam("user_id") Integer userId, @RequestParam("filename") String fileName)
     {
         try {
